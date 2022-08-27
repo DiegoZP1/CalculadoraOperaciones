@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CalculadoraOperaciones.Models;
 
-namespace CalculadoraOperaciones.Controllers;
 
-public class HomeController : Controller
+namespace CalculadoraOperaciones.Controllers
 {
-     public IActionResult Index()
+    public class CalculadoraController : Controller
+    {
+        public IActionResult Index()
         {
             return View();
         }
@@ -58,9 +59,17 @@ public class HomeController : Controller
             if("-".Equals(calculadora.Operacion)){
                 calculadora.Result = calculadora.Ope1 - calculadora.Ope2;
             }
+            if("*".Equals(calculadora.Operacion)){
+                calculadora.Result = calculadora.Ope1 * calculadora.Ope2;
+            }
+            
+            if("/".Equals(calculadora.Operacion)){
+                calculadora.Result = calculadora.Ope1 / calculadora.Ope2;
+            }
+            
             
             ViewData["Message"] = "Resultado:"+calculadora.Result;
-            return View("Calculadora",calculadora);
+            return View("Index",calculadora);
 		}
 
 
@@ -68,4 +77,5 @@ public class HomeController : Controller
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+    }
 }
